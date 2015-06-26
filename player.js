@@ -1,9 +1,14 @@
 var character = require('./character.js');
 
 var protoPlayer = {
-    name : "PaulMcFartney",
+    name : "Default",
     passwordInfo : {},
-    character : {}
+    character : {},
+
+    getName : function () {return this.name;},
+    getSalt : function () {return this.passwordInfo.salt;},
+    getHash : function () {return this.passwordInfor.hash;},
+    getCharacter : function () {return this.character}
 };
 
 var makeNew = function (name, passwordSalt, passwordHash) {
@@ -19,6 +24,6 @@ var makeNew = function (name, passwordSalt, passwordHash) {
 };
 
 module.exports = {
-    makeNew : makeNew
+    makeNew : makeNew,
 };
 

@@ -1,33 +1,62 @@
-/*
-var config = require('./config.js'),
-    monsters = require('./monsters.js'),
-    characters = require('./characters.js'),
-    items = require('./items.js'),
-    map = require('./map.js'),
-    environment = require('./environment.js'),
-    stateManager = require('./turnManager.js'),
-    orderManager = require('./orderManager.js');
-*/
+// game.js is just going to cycle turns.
 
 var stateManager = require('./stateManager.js'),
-    orderManager = require('./orderManager.js');
+    orderManager = require('./orderManager.js'),
+//    characterManager = require('./characterManager.js'),
+    turnCounter = require('./turnCounter.js');
 
-var turn = 0;
-
-initialize = function (latestTurn) {
+var initialize = function (latestTurn) {
+    turnCounter.setCount(latestTurn.getTurnNumber());
     stateManager.set(latestTurn);
 };
 
-addOrder = orderManager.addOrder;
+var addOrder = function (characterName, order) {
+    var validity = true, // Needs an actual validity check for movement orders.
+        errorMessage = 'invalidOrder';
 
-cancelOrder = function (character, turnNumber) {
+    if (validity) {
+        orderManager.addOrder(characterName);
+    }
+
+    else {
+        return errorMessage;
+    }
+/*
+    vaildity ? orderManager.addOrder(characterName, order) : 
+            return errorMessage; // Return a string?
+*/
+};
+
+var cancelOrder = function (character, turnNumber) {
 
 };
 
-buildTurn = function () {
-    var lastState = stateManager.get();
+var buildTurn = function () {
+    var lastState = stateManager.get(),
+        i = 0;
 
-    turn += 1;
+    // for each character, add character's orders to turn.
+
+ //   for (i = 0; i < numberOfCharacters; i += 1) {
+
+//        orderManager.getOrders(character[i])
+   // }
+
+    turnCounter.incrementCount();
+
+    return {
+        turnNumber : turnCounter.getCount(),
+        actors : [],
+        getTurnNumber : function () {
+            return this.turnNumber;
+        },
+        countActors : function () {
+            return this.actors.length;
+        },
+        getActor : function (index) {
+            return this.actors[index];
+        }
+    };
 };
 
 module.exports = {

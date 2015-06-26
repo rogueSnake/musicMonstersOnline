@@ -1,3 +1,45 @@
+var orderQueue = {
+
+};
+
+var addOrder = function (characterName, order) {
+
+    if (!orderQueue[characterName]) {
+        orderQueue[characterName] = {
+            blockingOrders : [],
+            nonblockingOrders : []
+        };
+    }
+
+    order.isBlocking() ? orderQueue[characterName].blockingOrders.push(order) :
+            orderQueue[characterName].nonblockingOrders.push(order);
+};
+
+var getOrders = function (characterName) {
+    var orders = orderQueue[characterName],
+        finalOrders = [],
+        i = 0,
+        nonblockingOrderCount;
+
+    if (orders) {
+        nonblockingOrderCount = orders.nonblockingOrders.length;
+
+        for (i = 0; i < nonblockingOrderCount; i += 1) {
+            finalOrders.push(orders.nonblockingOrders[i]);
+        };
+        finalOrders.push(orders.blockingOrders.pop());
+        orders.nonblockingOrders = [];
+    }
+    return finalOrders;
+};
+
+module.exports = {
+    addOrder : addOrder,
+    getOrders : getOrders
+};
+
+
+/*
 var turns = [];
 
 // We should consider using a position object here.
@@ -24,4 +66,5 @@ module.exports = {
     addOrder : addOrder,
     getOrders : getOrders
 };
+*/
 
