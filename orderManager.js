@@ -1,6 +1,4 @@
-var orderQueue = {
-
-};
+var orderQueue = {};
 
 var addOrder = function (characterName, order) {
 
@@ -27,8 +25,11 @@ var getOrders = function (characterName) {
         for (i = 0; i < nonblockingOrderCount; i += 1) {
             finalOrders.push(orders.nonblockingOrders[i]);
         };
-        finalOrders.push(orders.blockingOrders.pop());
         orders.nonblockingOrders = [];
+
+        if (orders.blockingOrders[0]) {
+            finalOrders.push(orders.blockingOrders.pop());
+        }
     }
     return finalOrders;
 };

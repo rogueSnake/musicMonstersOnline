@@ -7,4 +7,6 @@ describe('Game', function () {
         expect(newTurn.getTurnNumber()).toBe(1);
         expect(newTurn.countActors()).toBe(0);
     });
+
 });
+

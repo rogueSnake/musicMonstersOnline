@@ -1,4 +1,3 @@
-
 var accountManager = require('../accountManager.js');
 
 describe('accountManager', function () {
@@ -22,8 +21,6 @@ describe('accountManager', function () {
                     return console.log(error);
                 }
                 expect(typeof hash).toBe("string");
-                console.log(salt);
-                console.log(hash);
                 done();
             });
         });

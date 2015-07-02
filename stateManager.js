@@ -1,15 +1,15 @@
 var currentState = {};
 
-var set = function (newState) {
+var setState = function (newState) {
     currentState = newState;
 };
 
-var get = function () {
+var getState = function () {
     return currentState;
 };
 
 module.exports = {
-    set : set,
-    get : get
+    setState : setState,
+    getState : getState
 };
 
